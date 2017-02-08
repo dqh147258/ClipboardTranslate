@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ClipboardTranslate</string>
+    <string name="function_control">剪切板翻译服务</string>
+    <string name="attention">注意:\n    1、请确认授予软件自启权限.\n    2、请确认授予软件显示悬浮窗权限.\n    3、请确认授予软件显示通知权限.</string>
+    <string name="useing_notification">通知栏显示翻译结果</string>
+    <string name="useing_chinese">翻译中文</string>
+    <string name="translate">翻译: </string>
+</resources>

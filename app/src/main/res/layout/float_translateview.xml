@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/float_view"
+    android:id="@+id/float_translateview"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/float_scrollview"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/float_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/translate_label"
+                style="@style/MyTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/float_title"
+                android:text="@string/translate" />
+
+            <TextView
+                android:id="@+id/translate"
+                style="@style/MyTextView"
+                android:layout_below="@id/float_title"
+                android:layout_toRightOf="@id/translate_label"
+                />
+
+            <TextView
+                android:id="@+id/translate_uk"
+                style="@style/MyTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/translate" />
+
+            <TextView
+                android:id="@+id/translate_us"
+                style="@style/MyTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/translate_uk" />
+
+            <TextView
+                android:id="@+id/basic_explains_label"
+                style="@style/MyTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/translate_us"
+                android:text="本地释义:" />
+
+            <TextView
+                android:id="@+id/basic_explains"
+                style="@style/MyTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/basic_explains_label" />
+
+            <TextView
+                android:id="@+id/web_explains_label"
+                style="@style/MyTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/basic_explains"
+                android:text="网络释义" />
+
+            <TextView
+                android:id="@+id/web_explains"
+                style="@style/MyTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/web_explains_label" />
+        </RelativeLayout>
+    </ScrollView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_below="@id/float_scrollview"
+        android:layout_alignParentRight="true"
+        android:text="关闭"
+        android:textSize="25sp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/close_button"
+        android:id="@+id/close_button"
+        />
+</RelativeLayout>
