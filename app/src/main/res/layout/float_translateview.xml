@@ -71,7 +71,7 @@
                 style="@style/MyTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/basic_explains"
-                android:text="网络释义" />
+                android:text="网络释义:" />
 
             <TextView
                 android:id="@+id/web_explains"

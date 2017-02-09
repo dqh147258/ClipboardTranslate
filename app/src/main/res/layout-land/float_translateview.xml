@@ -50,14 +50,14 @@
             <TextView
                 android:id="@+id/translate_us"
                 style="@style/MyTextView"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/translate" />
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/translate_uk" />
 
             <TextView
                 android:id="@+id/basic_explains_label"
                 style="@style/MyTextView"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/translate_uk"
+                android:layout_below="@id/translate_us"
                 android:text="本地释义:" />
 
             <TextView
@@ -71,7 +71,7 @@
                 style="@style/MyTextView"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/basic_explains"
-                android:text="网络释义" />
+                android:text="网络释义:" />
 
             <TextView
                 android:id="@+id/web_explains"

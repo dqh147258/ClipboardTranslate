@@ -43,6 +43,13 @@
         android:checked="true"
         android:layout_marginBottom="20dp"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c5c5c5"
+        android:layout_above="@id/useing_notification"
+        android:layout_marginBottom="10dp"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:text="@string/useing_chinese"
@@ -59,6 +66,13 @@
         android:layout_below="@id/useing_notification"
         android:checked="false"
         android:layout_marginBottom="20dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c5c5c5"
+        android:layout_above="@id/useing_chinese"
+        android:layout_marginBottom="10dp"
         />
 
     <TextView
