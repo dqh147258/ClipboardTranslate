@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -52,6 +53,11 @@ public class TranslateService extends Service {
         clipboardManager.addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
             @Override
             public void onPrimaryClipChanged() {
+                String clip = "";
+                clip = clipboardManager.getText().toString();
+                if (clip == null || clip.length() < 1) {
+                    return;
+                }
                 //貌似遇到bug,监听器会被注册2次
 
                 /*if(clipText.equals(clipboardManager.getText().toString())){//判断剪切板文本是否和上次一样,一样则不处理
@@ -68,7 +74,6 @@ public class TranslateService extends Service {
                     clipTime = System.currentTimeMillis();
                 }
 
-                String clip = clipboardManager.getText().toString();
                 if (Data.isChineseChar(clip)) {
                     if (Data.getData("chineseSwitch", getApplicationContext()).equals("true")) {
                         //翻译中文
@@ -78,15 +83,16 @@ public class TranslateService extends Service {
                     //翻译英文
                     showTranslateView(clip);
                 }
+
             }
         });
-        if(!Data.getData("serviceSwitch",context).equals("false")){
+        if (!Data.getData("serviceSwitch", context).equals("false")) {
             if (!isAlarmOn(context)) {
-                setServiceAlarm(context,true);
+                setServiceAlarm(context, true);
             }
-        }else{
+        } else {
             if (isAlarmOn(context)) {
-                setServiceAlarm(context,false);
+                setServiceAlarm(context, false);
             }
             stopSelf();
         }
@@ -109,7 +115,7 @@ public class TranslateService extends Service {
 
     private String showTranslateView(final String clip) {
         String res = "";
-        info=null;
+        info = null;
         if (!Data.getData("notificationSwitch", getApplicationContext()).equals("false")) {
             //发送notification
             info = new TranslateInfo(Data.translate(clip));
@@ -120,9 +126,9 @@ public class TranslateService extends Service {
                 intent.putExtra("info", info);
                 action = "showFloatView";//显示翻译弹窗
                 Log.d(TAG, info.getTitle());
-                PendingIntent pi = PendingIntent.getService(getContext(), 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pi = PendingIntent.getService(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 notification = new Notification.Builder(getApplicationContext())
-                        .setSmallIcon(R.drawable.search)
+                        .setSmallIcon(R.mipmap.ic_launcher)
                         .setTicker(info.getTitle() + " -> " + info.getTranslation())
                         .setContentTitle(info.getTitle())
                         .setContentText("result -> " + info.getTranslation())
@@ -149,7 +155,7 @@ public class TranslateService extends Service {
                 }
                 if (info.getErrorCode() != 0) {
                     showError(info.getErrorCode());
-                }else {
+                } else {
                     FloatViewManager.createFloatView(info);
                 }
             }
@@ -157,7 +163,7 @@ public class TranslateService extends Service {
         int w = WindowManager.LayoutParams.MATCH_PARENT;
         int h = WindowManager.LayoutParams.WRAP_CONTENT;
 
-        int flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        int flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         int type = 0;
         //api版本大于19的时候 TYPE_TOAST用这个参数 可以绕过绝大多数对悬浮窗权限的限制，比如miui
         //在小于19的时候 其实也是可以绕过的，只不过小于19你绕过了以后 点击事件就无效了 所以小于19的时候
@@ -221,20 +227,21 @@ public class TranslateService extends Service {
     }
 
     public static void setServiceAlarm(Context c, boolean isOn) {
-        final long INTERVAL_TIME=1000*5;
+        final long INTERVAL_TIME = 1000 * 5;
         Intent i = new Intent(c, TranslateService.class);
         PendingIntent p = PendingIntent.getService(c, 0, i, 0);
         AlarmManager am = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
         if (isOn) {
             am.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), INTERVAL_TIME, p);
-        }else{
+        } else {
             am.cancel(p);
             p.cancel();
         }
     }
+
     public static boolean isAlarmOn(Context c) {
         Intent i = new Intent(c, TranslateService.class);
         PendingIntent p = PendingIntent.getService(c, 0, i, PendingIntent.FLAG_NO_CREATE);
-        return p!=null;
+        return p != null;
     }
 }

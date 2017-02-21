@@ -3,6 +3,7 @@ package com.yxf.clipboardtranslate;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.widget.Toast;
 
 /**
@@ -11,9 +12,8 @@ import android.widget.Toast;
 public class StartReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!Data.getData("serviceSwitch", context).equals("false")) {
-            Intent i = new Intent(context, TranslateService.class);
-            context.startService(i);
+        if (!TranslateService.isAlarmOn(context)) {
+            TranslateService.setServiceAlarm(context, true);
         }
     }
 }
